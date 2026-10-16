@@ -1,0 +1,20 @@
+[package]
+name = "enshrouded-manager"
+version = "0.1.0"
+edition = "2021"
+description = "A GPUI app to configure and manage the Enshrouded dedicated server config"
+
+[dependencies]
+gpui = "=0.2.2"
+gpui-component = "=0.5.1"
+gpui-component-assets = "=0.5.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+anyhow = "1"
+regex = "1"
+rand = "0.8"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
