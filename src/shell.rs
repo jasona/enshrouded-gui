@@ -33,7 +33,6 @@ impl Render for Manager {
         div()
             .id("app")
             .key_context("Manager")
-            .track_focus(&self.focus)
             .on_action(cx.listener(|this, _: &SaveConfig, window, cx| this.save(window, cx)))
             .relative()
             .size_full()
@@ -58,7 +57,11 @@ impl Render for Manager {
                 ),
             )
             .child(
+                // Focus is tracked here and not on the root. A focus-tracking element calls
+                // prevent_default on mouse down, which on Windows stops the title bar from
+                // being dragged and its caption buttons from working.
                 h_flex()
+                    .track_focus(&self.focus)
                     .flex_1()
                     .min_h_0()
                     .child(self.render_sidebar(cx))
